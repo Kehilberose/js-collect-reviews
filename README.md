@@ -2,4 +2,4 @@
 
 Allows to unload reviews from Google Play Console
 
-Paste code into console while page with reviews is opened
+Paste code from script.js into console while page with reviews is opened
