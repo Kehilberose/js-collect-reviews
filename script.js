@@ -1,5 +1,5 @@
 /* Для отзывов в Google Play Console */
- 
+  
 function collectReviews() {
     collectElems = document.querySelectorAll('*[aria-label^="Отзыв"]');
     reviewsArr = {};
@@ -20,8 +20,13 @@ function collectReviews() {
             k++;
         }
     } for (j = 0; j < reviewsRatesArr.length; j++) {
-        result += reviewsAuthorsArr[j][0].innerText + "\t" + reviewsRatesArr[j][0].title[0] + "\t" + reviewsTextsArr[j][0].innerText + "\t\t" + reviewsAnswersArr[j][0].innerText + "\n";
+        reviewsTextsArr[j][0].innerText = reviewsTextsArr[j][0].innerText.replace('\n', ' ');
+        reviewsAnswersArr[j][0].innerText = reviewsAnswersArr[j][0].innerText.replace('\n', ' ');
+        result += reviewsAuthorsArr[j][0].innerText + "\t"
+        + reviewsRatesArr[j][0].title[0] + "\t"
+        + reviewsTextsArr[j][0].innerText + "\t\t"
+        + reviewsAnswersArr[j][0].innerText + "\n";
     } console.log(result);
 }
- 
+  
 collectReviews();
