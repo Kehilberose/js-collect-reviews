@@ -1,32 +1,47 @@
-/* Для отзывов в Google Play Console */
-  
+/* Для отзывов в Google Play Console */   
+
 function collectReviews() {
-    collectElems = document.querySelectorAll('*[aria-label^="Отзыв"]');
+    collectElems = document.querySelectorAll('review');
     reviewsArr = {};
     reviewsAuthorsArr = [];
     reviewsRatesArr = [];
     reviewsTextsArr = [];
     reviewsAnswersArr = [];
     result = "";
-    for (k = 0, i = 0; i < collectElems.length; i++) {
+  
+    for (k = 0, i = 0; i < collectElems.length; i++, k++) {
         if (collectElems[i].tagName == "LI") {
             continue;
         } else {
             reviewsArr[k] = collectElems[i];
-            reviewsAuthorsArr[k] = reviewsArr[k].querySelectorAll("h2 > span > strong");
-            reviewsRatesArr[k] = reviewsArr[k].querySelectorAll("h2 + p > div");
-            reviewsTextsArr[k] = reviewsArr[k].querySelectorAll("fox-review-history + div > pre > span");
-            reviewsAnswersArr[k] = reviewsArr[k].querySelectorAll("div > div > div > span + pre");
-            k++;
+            reviewsAuthorsArr[k] = reviewsArr[k].querySelectorAll(".author-display-name");
+            reviewsRatesArr[k] = reviewsArr[k].querySelectorAll("star-rating > div:first-child");
+            reviewsTextsArr[k] = reviewsArr[k].querySelectorAll(".review-text");
+            reviewsAnswersArr[k] = reviewsArr[k].querySelectorAll(".reply-text");
         }
-    } for (j = 0; j < reviewsRatesArr.length; j++) {
-        reviewsTextsArr[j][0].innerText = reviewsTextsArr[j][0].innerText.replace('\n', ' ');
-        reviewsAnswersArr[j][0].innerText = reviewsAnswersArr[j][0].innerText.replace('\n', ' ');
-        result += reviewsAuthorsArr[j][0].innerText + "\t"
-        + reviewsRatesArr[j][0].title[0] + "\t"
-        + reviewsTextsArr[j][0].innerText + "\t\t"
-        + reviewsAnswersArr[j][0].innerText + "\n";
-    } console.log(result);
-}
+    }
   
+    for (j = 0; j < reviewsRatesArr.length; j++) {
+ 
+        let review = ""
+        let answer = ""
+         
+        if(reviewsTextsArr[j][0]) {
+            review = reviewsTextsArr[j][0].innerText.replace('\n', ' ');
+        }
+ 
+        if(reviewsAnswersArr[j][0]) {
+            answer = reviewsAnswersArr[j][0].innerText.replace('\n', ' ');
+        }
+          
+        result += reviewsAuthorsArr[j][0].innerText + "\t"
+            + reviewsRatesArr[j][0].attributes[3].nodeValue[0] + "\t"
+            + review + "\t\t"
+            + answer + "\n";
+         
+    }
+  
+    console.log(result);
+}
+    
 collectReviews();
